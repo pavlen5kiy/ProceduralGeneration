@@ -69,7 +69,7 @@ function determineColor(biome, elevation, oceanTemperature) {
     switch (biome) {
         case "Water":
             const blue = Math.floor(255 * Math.abs(elevation - 0.2) / 3);
-            const green = 255 * (1 - oceanTemperature) / 3;
+            const green = 255 * (oceanTemperature * 10);
             return `rgb(0, ${green}, ${255 - blue})`; // Blue color for water
         case "Plains":
             return "rgb(130, 255, 47)"; // Green grass color
