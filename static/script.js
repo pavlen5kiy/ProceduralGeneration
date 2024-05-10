@@ -41,6 +41,49 @@ function perlinNoise(x, y) {
   return total / maxValue;
 }
 
+function temperatureMap(x, y) {
+  let total = 0;
+  let frequency = 0.2;
+  let amplitude = 0.15;
+  let maxValue = 0; // Used for normalizing result to 0.0 - 1.0
+
+  for (let i = 0; i < octaves / 4; i++) {
+    total +=
+      noise.simplex2(
+        (x + offsetX) * frequency * noiseScale * 0.12,
+        (y + offsetY) * frequency * noiseScale * 0.12
+      ) * amplitude;
+
+    maxValue += amplitude;
+
+    amplitude *= persistence;
+    frequency *= 2;
+  }
+
+  return total / maxValue;
+}
+
+function moistureMap(x, y) {
+  let total = 0;
+  let frequency = 0.5;
+  let amplitude = 0.1;
+  let maxValue = 0; // Used for normalizing result to 0.0 - 1.0
+
+  for (let i = 0; i < octaves / 2; i++) {
+    total +=
+      noise.simplex2(
+        (x + offsetX) * frequency * noiseScale * 0.5,
+        (y + offsetY) * frequency * noiseScale * 0.5
+      ) * amplitude;
+
+    maxValue += amplitude;
+
+    amplitude *= persistence;
+  }
+
+  return total / maxValue;
+}
+
 // Function to determine biome based on elevation, temperature, and moisture
 function determineBiome(elevation, temperature, moisture) {
   if (elevation < 0.1) {
@@ -48,11 +91,43 @@ function determineBiome(elevation, temperature, moisture) {
   } else if (elevation < 0.2) {
     return "Desert";
   } else if (elevation < 0.4) {
-    return "Plains";
+    if (moisture < 0.5) {
+      if (temperature > 0.2) {
+        return "Desert";
+      } else if (temperature > -0.5) {
+        return "Plains";
+      } else {
+        return "SnowyPlains";
+      }
+    } else {
+      if (temperature > 0.5) {
+        if (moisture > 0.5) {
+          return "Jungle";
+        } else {
+          return "Savanna";
+        }
+      } else if (temperature > -0.5) {
+        return "Forest";
+      } else {
+        return "Taiga";
+      }
+    }
   } else if (elevation < 0.6) {
-    return "Forest";
+    if (temperature > 0.5) {
+      return "Jungle";
+    } else if (temperature > 0) {
+      return "Savanna";
+    } else if (temperature > -0.5) {
+      return "Forest";
+    } else {
+      return "Taiga";
+    }
   } else if (elevation < 0.75) {
-    return "Mountains";
+    if (temperature > 0.5) {
+      return "Forest";
+    } else {
+      return "Mountains";
+    }
   } else {
     return "SnowyMountains";
   }
@@ -63,20 +138,26 @@ function determineColor(biome, elevation, oceanTemperature) {
   switch (biome) {
     case "Water":
       const blue = Math.floor((255 * Math.abs(elevation - 0.2)) / 3);
-      const green = 255 * (oceanTemperature * 10);
-      return `rgb(0, ${green}, ${255 - blue})`; // Blue color for water
+      const green = 15 * (oceanTemperature * 10);
+      return `rgb(0, ${green}, ${255 - blue})`;
     case "Plains":
-      return "rgb(130, 255, 47)"; // Green grass color
+      return "rgb(25, 200, 50)";
     case "Forest":
-      return "rgb(34, 139, 34)"; // Forest color
+      return "rgb(34, 139, 34)";
     case "Mountains":
-      return "rgb(192, 192, 192)"; // Gray color for mountains
+      return "rgb(192, 192, 192)";
     case "SnowyMountains":
-      return "rgb(255, 255, 255)"; // White color for snowy mountains
+      return "rgb(255, 255, 255)";
     case "Desert":
-      return "rgb(255, 255, 102)"; // Yellow color for desert
+      return "rgb(255, 255, 102)";
+    case "Jungle":
+      return "rgb(0, 255, 0)";
+    case "Savanna":
+      return "rgb(100, 150, 0)";
+    case "Taiga":
+      return "rgb(15, 139, 100)";
     default:
-      return "rgb(255, 255, 255)"; // Default color
+      return "rgb(255, 255, 255)";
   }
 }
 
@@ -94,10 +175,11 @@ function generateTerrainWithBiomes() {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const elevation = perlinNoise(x, y);
-      const oceanTemperature = elevation;
+      const temperature = temperatureMap(x, y);
+      const moisture = moistureMap(x, y);
 
-      const biome = determineBiome(elevation);
-      const color = determineColor(biome, elevation, oceanTemperature);
+      const biome = determineBiome(elevation, temperature, moisture);
+      const color = determineColor(biome, elevation, temperature);
       drawPixel(x, y, color);
     }
   }
@@ -122,13 +204,13 @@ document.addEventListener("keydown", function (event) {
       offsetX += 10;
       break;
     case "[":
-        // Adjust noise scale for zooming out
-        noiseScale /= 0.9; // Zoom out
-        break;
-    case ']':
-        // Adjust noise scale for zooming in
-        noiseScale *= 0.9; // Zoom in
-        break;
+      // Adjust noise scale for zooming out
+      noiseScale *= 1.1; // Zoom out
+      break;
+    case "]":
+      // Adjust noise scale for zooming in
+      noiseScale *= 0.9; // Zoom in
+      break;
     default:
       return; // Exit this handler for other keys
   }
