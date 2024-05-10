@@ -89,7 +89,11 @@ function determineBiome(elevation, temperature, moisture) {
   if (elevation < 0.1) {
     return "Water";
   } else if (elevation < 0.2) {
-    return "Desert";
+    if (temperature > -0.75) {
+      return "Desert";
+    } else {
+      return "Mountains"; // not mountains, but stoney beach or sth
+    }
   } else if (elevation < 0.4) {
     if (moisture < 0.5) {
       if (temperature > 0.2) {
