@@ -6,12 +6,12 @@
     <title>Minecraft-style World Map</title>
     <script src="https://cdn.jsdelivr.net/npm/noisejs/index.js"></script>
   </head>
-  <body>
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 10px; box-sizing: border-box; font-family: Andale Mono, monospace">
+  <body style="background-color: rgb(13, 13, 13);">
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(25, 25, 25); color: white; padding: 10px; box-sizing: border-box; font-family: Andale Mono, monospace">
       <p>Use WASD keys to move the map.</p>
       <p>Use ] and [ keys to zoom in and out.</p>
   </div>
-    <canvas id="canvas"></canvas>
+    <canvas style="position: absolute; top: 50%; left: 50%; width: 40%; transform: translate(-50%, -50%);" id="canvas"></canvas>
     <script src="/static/script.js"></script>
   </body>
 </html>

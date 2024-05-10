@@ -145,21 +145,19 @@ function determineColor(biome, elevation, oceanTemperature) {
       const green = 15 * (oceanTemperature * 10);
       return `rgb(0, ${green}, ${255 - blue})`;
     case "Plains":
-      return "rgb(25, 200, 50)";
+      return "rgb(127, 204, 25)";
     case "Forest":
-      return "rgb(34, 139, 34)";
+      return "rgb(0, 87, 0)";
     case "Mountains":
-      return "rgb(192, 192, 192)";
-    case "SnowyMountains":
-      return "rgb(255, 255, 255)";
+      return "rgb(141, 144, 158)";
     case "Desert":
-      return "rgb(255, 255, 102)";
+      return "rgb(247, 233, 163)";
     case "Jungle":
-      return "rgb(0, 255, 0)";
+      return "rgb(0, 217, 58)";
     case "Savanna":
-      return "rgb(100, 150, 0)";
+      return "rgb(103, 117, 53)";
     case "Taiga":
-      return "rgb(15, 139, 100)";
+      return "rgb(22, 126, 134)";
     default:
       return "rgb(255, 255, 255)";
   }
@@ -196,24 +194,24 @@ generateTerrainWithBiomes();
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "w":
-      offsetY -= 10;
+      offsetY -= 5;
       break;
     case "s":
-      offsetY += 10;
+      offsetY += 5;
       break;
     case "a":
-      offsetX -= 10;
+      offsetX -= 5;
       break;
     case "d":
-      offsetX += 10;
+      offsetX += 5;
       break;
     case "[":
       // Adjust noise scale for zooming out
-      noiseScale *= 1.1; // Zoom out
+      noiseScale *= 1.02; // Zoom out
       break;
     case "]":
       // Adjust noise scale for zooming in
-      noiseScale *= 0.9; // Zoom in
+      noiseScale *= 0.98; // Zoom in
       break;
     default:
       return; // Exit this handler for other keys
