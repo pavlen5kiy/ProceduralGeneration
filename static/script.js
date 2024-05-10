@@ -102,7 +102,7 @@ function determineBiome(elevation, temperature, moisture) {
         return "Jungle";
       } else if (moisture > 0) {
         return "Savanna";
-      } else if (moisture > -0.5) {
+      } else if (moisture > -0.25) {
         return "RedDesert";
       } else {
         return "Desert";
@@ -128,8 +128,10 @@ function determineBiome(elevation, temperature, moisture) {
         return "MountainsJungle";
       } else if (moisture > 0) {
         return "MountainsSavanna";
-      } else if (moisture > -0.5) {
+      } else if (moisture > -0.25) {
         return "Badlands";
+      } else {
+        return "Desert";
       }
     } else if (temperature > -0.5) {
       return "Forest";
@@ -142,19 +144,20 @@ function determineBiome(elevation, temperature, moisture) {
         return "MountainsJungle";
       } else if (moisture > 0) {
         return "MountainsSavanna";
-      } else if (moisture > -0.5) {
+      } else {
         return "Mountains";
       }
-    } else if (temperature > 0) {
+    } else if (temperature > -0.5) {
       return "MountainsForest";
     } else {
-      return "Mountains";
+      return "MountainsTaiga";
     }
   } else {
-    if (temperature > 0.5) {
+    if (temperature > -0.5) {
       return "Mountains";
+    } else {
+      return "SnowyMountains";
     }
-    return "SnowyMountains";
   }
 }
 
@@ -173,6 +176,8 @@ function determineColor(biome, elevation, oceanTemperature) {
       return "rgba(0, 87, 0)";
     case "Mountains":
       return "rgb(141, 144, 158)";
+    case "SnowyMountains":
+      return "rgb(255, 255, 255)";
     case "Desert":
       return "rgb(247, 233, 163)";
     case "Jungle":
@@ -189,6 +194,8 @@ function determineColor(biome, elevation, oceanTemperature) {
       return "rgb(15, 88, 94)";
     case "IcyBeach":
       return "rgb(102, 153, 216)";
+    case "SnowyPlains":
+      return "rgb(255, 255, 255)";
     case "Badlands":
       return "rgb(137, 70, 31)";
     case "RedDesert":
@@ -196,7 +203,7 @@ function determineColor(biome, elevation, oceanTemperature) {
     case "Swamp":
       return "rgb(53, 57, 29)";
     default:
-      return "rgb(255, 255, 255)";
+      return "rgb(255, 0, 0)";
   }
 }
 
