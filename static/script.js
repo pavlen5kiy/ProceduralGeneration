@@ -1,24 +1,19 @@
-// Set up canvas
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-// Define canvas size
 const width = 400;
 const height = 400;
 canvas.width = width;
 canvas.height = height;
 
-// Set up Perlin noise parameters
 const noise = new Noise(Math.random());
 let noiseScale = 0.025;
 const octaves = 4;
 const persistence = 0.5;
 
-// Initialize position
 let offsetX = 0;
 let offsetY = 0;
 
-// Function to generate Perlin noise
 function terrainMap(x, y) {
   let total = 0;
   let frequency = 0.5;
@@ -84,7 +79,6 @@ function moistureMap(x, y) {
   return total / maxValue;
 }
 
-// Function to determine biome based on elevation, temperature, and moisture
 function determineBiome(elevation, temperature, moisture) {
   if (elevation < 0.1) {
     return "Water";
@@ -161,7 +155,6 @@ function determineBiome(elevation, temperature, moisture) {
   }
 }
 
-// Function to determine color based on biome
 function determineColor(biome, elevation, oceanTemperature) {
   switch (biome) {
     case "Water":
@@ -207,15 +200,12 @@ function determineColor(biome, elevation, oceanTemperature) {
   }
 }
 
-// Function to draw a pixel on the canvas
 function drawPixel(x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, 1, 1);
 }
 
-// Function to generate terrain and biomes
-function generateTerrainWithBiomes() {
-  // Clear canvas
+function generateMap() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   for (let y = 0; y < height; y++) {
@@ -231,10 +221,8 @@ function generateTerrainWithBiomes() {
   }
 }
 
-// Generate terrain with biomes
-generateTerrainWithBiomes();
+generateMap();
 
-// Handle arrow key press events
 document.addEventListener("keydown", function (event) {
   const moveSpeed = 20;
   const zoomInParam = 0.98;
@@ -254,19 +242,15 @@ document.addEventListener("keydown", function (event) {
       offsetX += moveSpeed;
       break;
     case "[":
-      // Adjust noise scale for zooming out
-      noiseScale *= zoomOutParam; // Zoom out
-
+      noiseScale *= zoomOutParam;
       break;
     case "]":
-      // Adjust noise scale for zooming in
-      noiseScale *= zoomInParam; // Zoom in
-
+      noiseScale *= zoomInParam;
       break;
     default:
-      return; // Exit this handler for other keys
+      return;
   }
 
   // Redraw terrain
-  setTimeout(generateTerrainWithBiomes, 1000 / 30);
+  setTimeout(generateMap, 1000 / 30);
 });
