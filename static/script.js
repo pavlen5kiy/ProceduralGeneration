@@ -155,11 +155,11 @@ function determineBiome(elevation, temperature, moisture) {
   }
 }
 
-function determineColor(biome, elevation, oceanTemperature) {
+function determineColor(biome, elevation, temperature) {
   switch (biome) {
     case "Water":
-      const blue = Math.floor((255 * Math.abs(elevation - 0.2)) / 3);
-      const green = 15 * (oceanTemperature * 10);
+      const green = 15 * (temperature * 10);
+      const blue = Math.floor((255 * Math.abs(elevation - 0.2)) / 3) - green;
       return `rgb(0, ${green}, ${255 - blue})`;
     case "Plains":
       return "rgb(127, 204, 25)";
