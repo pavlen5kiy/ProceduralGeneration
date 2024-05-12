@@ -254,3 +254,48 @@ document.addEventListener("keydown", function (event) {
   // Redraw terrain
   setTimeout(generateMap, 1000 / 30);
 });
+
+// Add this function to dynamically populate the biome hints table
+function populateBiomeHints() {
+  const biomeHintsTable = document.getElementById("biome-hints");
+
+  const biomes = [
+    { name: "Water", color: "rgb(0, 150, 255)" },
+    { name: "Plains", color: "rgb(127, 204, 25)" },
+    { name: "Forest", color: "rgb(0, 124, 0)" },
+    { name: "Mountains Forest", color: "rgba(0, 87, 0)" },
+    { name: "Mountains / Stoney Beach", color: "rgb(141, 144, 158)" },
+    { name: "Snowy Mountains / Snowy Plains", color: "rgb(255, 255, 255)" },
+    { name: "Desert / Beach", color: "rgb(247, 233, 163)" },
+    { name: "Jungle", color: "rgb(0, 217, 58)" },
+    { name: "Mountains Jungle", color: "rgb(0, 153, 40)" },
+    { name: "Savanna", color: "rgb(103, 117, 53)" },
+    { name: "Mountains Savanna", color: "rgb(72, 82, 37)" },
+    { name: "Taiga", color: "rgb(22, 126, 134)" },
+    { name: "Mountains Taiga", color: "rgb(15, 88, 94)" },
+    { name: "Icy Beach", color: "rgb(102, 153, 216)" },
+    { name: "Badlands", color: "rgb(137, 70, 31)" },
+    { name: "Red Desert", color: "rgb(159, 82, 36)" },
+    { name: "Swamps", color: "rgb(53, 57, 29)" },
+  ];
+
+  biomes.forEach((biome) => {
+    const row = document.createElement("tr");
+    const squareCell = document.createElement("td");
+    const nameCell = document.createElement("td");
+    const square = document.createElement("div");
+    
+    square.classList.add("biome-square");
+    square.style.backgroundColor = biome.color;
+    nameCell.textContent = biome.name;
+    
+    squareCell.appendChild(square);
+    row.appendChild(squareCell);
+    row.appendChild(nameCell);
+    
+    biomeHintsTable.appendChild(row);
+  });
+}
+
+// Call the function to populate biome hints table
+populateBiomeHints();
