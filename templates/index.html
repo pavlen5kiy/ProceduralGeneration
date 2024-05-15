@@ -1,36 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minecraft-style World Map</title>
-    <script src="https://cdn.jsdelivr.net/npm/noisejs/index.js"></script>
-    <style>
-      table {
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-      th,
-      td {
-        padding: 5px;
-        border: none;
-        text-align: left;
-      }
-      .biome-square {
-        width: 20px;
-        height: 20px;
-        display: inline-block;
-        margin-right: 5px;
-      }
-    </style>
-  </head>
-  <body style="background-color: rgb(13, 13, 13);">
-    <div style="position: absolute; top: 0%; left: 0%; width: 100%; background-color: rgb(13, 13, 13); color: white; padding: 10px; box-sizing: border-box; font-family: Andale Mono, monospace">
-      <p>Use WASD keys to move the map.</p>
-      <p>Use ] and [ keys to zoom in and out.</p>
-      <table id="biome-hints"></table>
-    </div>
-    <canvas style="position: absolute; top: 50%; left: 50%; width: 40%; transform: translate(-50%, -50%);" id="canvas"></canvas>
-    <script src="/static/script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft-style World Map</title>
+  <script src="https://cdn.jsdelivr.net/npm/noisejs/index.js"></script>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="hints">
+    <p>Use WASD keys to move the map.</p>
+    <p>Use ] and [ keys to zoom in and out.</p>
+    <table id="biome-hints"></table>
+  </div>
+  <script src="/static/script.js"></script>
+</body>
 </html>

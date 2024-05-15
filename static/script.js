@@ -284,15 +284,15 @@ function populateBiomeHints() {
     const squareCell = document.createElement("td");
     const nameCell = document.createElement("td");
     const square = document.createElement("div");
-    
+
     square.classList.add("biome-square");
     square.style.backgroundColor = biome.color;
     nameCell.textContent = biome.name;
-    
+
     squareCell.appendChild(square);
     row.appendChild(squareCell);
     row.appendChild(nameCell);
-    
+
     biomeHintsTable.appendChild(row);
   });
 }

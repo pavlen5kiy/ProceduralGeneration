@@ -1,0 +1,50 @@
+body {
+  background-color: rgb(13, 13, 13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transform-origin: center center;
+}
+
+#hints {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  background-color: none;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: Andale Mono, monospace;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 5px;
+  border: none;
+  text-align: left;
+}
+
+.biome-square {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 5px;
+}
